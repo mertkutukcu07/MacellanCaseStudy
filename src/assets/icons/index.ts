@@ -1,15 +1,13 @@
-import BasvuruGoruntuleIcon from "./BasvuruGoruntuleIcon.svg";
-import BasvuruYapIcon from "./BasvuruYapIcon.svg";
-import CanliDestekIcon from "./CanliDestekIcon.svg";
-import DovizCeviriIcon from "./DovizCeviriIcon.svg";
-import EvrakListesiIcon from "./EvrakListesiIcon.svg";
-import ProfileIcon from "./ProfileIcon.svg";
+import ArrowLeftIcon from "./ArrowLeftIcon.svg";
+import MakePaymentIcon from "./MakePaymentIcon.svg";
+import UploadBalanceIcon from "./UploadBalanceIcon.svg";
+import AppInfoIcon from "./AppInfoIcon.svg";
+import LogoutIcon from "./LogoutIcon.svg";
 
 export {
-  BasvuruGoruntuleIcon,
-  BasvuruYapIcon,
-  CanliDestekIcon,
-  DovizCeviriIcon,
-  EvrakListesiIcon,
-  ProfileIcon,
+  ArrowLeftIcon,
+  MakePaymentIcon,
+  UploadBalanceIcon,
+  AppInfoIcon,
+  LogoutIcon,
 };

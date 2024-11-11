@@ -10,16 +10,17 @@ import { ReadQrRequest } from "@/types/readQr/request";
 import { ApproveResponse } from "@/types/approve/response";
 import { ApproveRequest } from "@/types/approve/request";
 import { ActivityListResponse } from "@/types/activityList/response";
-import { AppDispatch, RootState } from "@/redux/store";
-import { logout } from "@/redux/features/authSlice";
-import { persistor } from "@/redux/store";
+import type { AppDispatch, RootState } from "@/redux/store";
+import { logout, setCredentials } from "@/redux/features/authSlice";
+import { RegisterResponse } from "@/types/register/response";
+import { RegisterRequest } from "@/types/register/request";
 
 const baseQueryWithReauth = fetchBaseQuery({
-  baseUrl: process.env.BASE_URL,
+  baseUrl: process.env.EXPO_PUBLIC_BASE_URL,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
     if (token) {
-      headers.set("authorization", `Bearer ${token}`);
+      headers.set("Authorization", token);
     }
     headers.set("Content-Type", "application/json");
     headers.set("Accept", "application/json");
@@ -37,8 +38,6 @@ const baseQueryWithErrorHandling = async (
   if (result.error) {
     if (result.error.status === 401) {
       api.dispatch(logout());
-
-      await persistor.purge();
     }
   }
   return result;
@@ -58,18 +57,62 @@ export const api = createApi({
         method: "POST",
         body: credentials,
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data: loginData } = await queryFulfilled;
+          if (loginData.token) {
+            dispatch(setCredentials({ token: loginData.token, user: null }));
+            const meResult = await dispatch(
+              api.endpoints.getMe.initiate(undefined, { forceRefetch: true })
+            );
+            if (meResult.data) {
+              dispatch(
+                setCredentials({ token: loginData.token, user: meResult.data })
+              );
+            }
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+        }
+      },
+    }),
+
+    register: builder.mutation<RegisterResponse, RegisterRequest>({
+      query: (credentials) => ({
+        url: EndPoints.REGISTER,
+        method: "POST",
+        body: credentials,
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data: registerData } = await queryFulfilled;
+          if (registerData.token) {
+            dispatch(setCredentials({ token: registerData.token, user: null }));
+            const meResult = await dispatch(
+              api.endpoints.getMe.initiate(undefined, { forceRefetch: true })
+            );
+            if (meResult.data) {
+              dispatch(
+                setCredentials({
+                  token: registerData.token,
+                  user: meResult.data,
+                })
+              );
+            }
+          }
+        } catch (error) {
+          console.error("Register error:", error);
+        }
+      },
     }),
 
     getMe: builder.query<MeResponse, void>({
       query: () => EndPoints.ME,
-      // Cache yönetimi için tag ekleyelim
       providesTags: ["Me"],
-      // Error handling
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
         } catch (error) {
-          // Özel hata yönetimi gerekiyorsa
           console.error("GetMe error:", error);
         }
       },
@@ -92,7 +135,7 @@ export const api = createApi({
 
     approve: builder.mutation<ApproveResponse, ApproveRequest>({
       query: (data) => ({
-        url: EndPoints.REGISTER,
+        url: EndPoints.APPROVE,
         method: "POST",
         body: data,
       }),
@@ -112,6 +155,7 @@ export const invalidateAllQueries = (dispatch: AppDispatch) => {
 
 export const {
   useLoginMutation,
+  useRegisterMutation,
   useGetMeQuery,
   useTopUpMutation,
   useReadQRQuery,

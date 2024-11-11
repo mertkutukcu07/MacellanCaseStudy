@@ -5,14 +5,19 @@ import {
 } from "@react-navigation/native-stack";
 import React from "react";
 import { RouteNames } from "./routeNames";
-import { AuthStack } from "./stacks";
+import { AuthorizeStack, AuthStack } from "./stacks";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export type AppStackParamList = {
   [RouteNames.AUTH_STACK]: undefined;
+  [RouteNames.AUTHORIZE_STACK]: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 const AppStack = () => {
+  const { user } = useSelector((state: RootState) => state.auth);
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -20,7 +25,14 @@ const AppStack = () => {
         gestureEnabled: false,
       }}
     >
-      <Stack.Screen name={RouteNames.AUTH_STACK} component={AuthStack} />
+      {user ? (
+        <Stack.Screen
+          name={RouteNames.AUTHORIZE_STACK}
+          component={AuthorizeStack}
+        />
+      ) : (
+        <Stack.Screen name={RouteNames.AUTH_STACK} component={AuthStack} />
+      )}
     </Stack.Navigator>
   );
 };
