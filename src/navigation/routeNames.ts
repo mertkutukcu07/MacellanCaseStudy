@@ -1,0 +1,5 @@
+export enum RouteNames {
+  AUTH_STACK = "AUTH_STACK",
+  LOGIN_SCREEN = "LOGIN_SCREEN",
+  REGISTER_SCREEN = "REGISTER_SCREEN",
+}
