@@ -1,4 +1,4 @@
 export type ApproveRequest = {
   reference_code: string;
-  point_usage: number;
+  point_usage: boolean;
 };

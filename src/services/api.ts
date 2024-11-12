@@ -6,7 +6,6 @@ import { MeResponse } from "@/types/me/response";
 import { TopUpRequest } from "@/types/topUp/request";
 import { TopUpResponse } from "@/types/topUp/response";
 import { ReadQrResponse } from "@/types/readQr/response";
-import { ReadQrRequest } from "@/types/readQr/request";
 import { ApproveResponse } from "@/types/approve/response";
 import { ApproveRequest } from "@/types/approve/request";
 import { ActivityListResponse } from "@/types/activityList/response";
@@ -14,6 +13,7 @@ import type { AppDispatch, RootState } from "@/redux/store";
 import { logout, setCredentials } from "@/redux/features/authSlice";
 import { RegisterResponse } from "@/types/register/response";
 import { RegisterRequest } from "@/types/register/request";
+import { ReadQrRequest } from "@/types/readQr/request";
 
 const baseQueryWithReauth = fetchBaseQuery({
   baseUrl: process.env.EXPO_PUBLIC_BASE_URL,
@@ -147,9 +147,9 @@ export const api = createApi({
       invalidatesTags: ["Me"],
     }),
 
-    readQR: builder.query<ReadQrResponse, ReadQrRequest>({
+    readQR: builder.mutation<ReadQrResponse, ReadQrRequest>({
       query: (data) => ({
-        url: `${EndPoints.READ_QR}:${data.reference_code}`,
+        url: `${EndPoints.READ_QR}${data.reference_code}`,
         method: "GET",
       }),
     }),
@@ -160,6 +160,20 @@ export const api = createApi({
         method: "POST",
         body: data,
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled, getState }) {
+        try {
+          const { data: result } = await queryFulfilled;
+          if (result.status === "approved") {
+            const user = (getState() as RootState).auth.user;
+            if (user) {
+              dispatch({ type: "socket/connect" });
+              dispatch({ type: "socket/join", payload: { user_id: user._id } });
+            }
+          }
+        } catch (error) {
+          console.error("Approve error:", error);
+        }
+      },
     }),
 
     getActivityList: builder.query<ActivityListResponse, void>({
@@ -180,7 +194,7 @@ export const {
   useRegisterMutation,
   useGetMeQuery,
   useTopUpMutation,
-  useReadQRQuery,
+  useReadQRMutation,
   useApproveMutation,
   useGetActivityListQuery,
 } = api;

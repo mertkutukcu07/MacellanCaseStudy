@@ -28,7 +28,7 @@ interface HomeScreenProps
   extends AuthorizeStackScreenProps<RouteNames.HOME_SCREEN> {}
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
-  const { top } = useSafeAreaInsets();
+  const { top, bottom } = useSafeAreaInsets();
   const { data: activityList } = useGetActivityListQuery();
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
@@ -57,6 +57,8 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
       <Box flex={0.5} px={20} mt={20}>
         <FlatList
           data={activityList?.result}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: bottom }}
           ListHeaderComponent={
             <AccountMovementsHeader>Hesap Hareketleri</AccountMovementsHeader>
           }

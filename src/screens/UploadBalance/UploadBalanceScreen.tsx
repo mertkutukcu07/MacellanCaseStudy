@@ -11,8 +11,6 @@ import {
   Title,
 } from "@/components/common";
 import { ArrowLeftIcon } from "@/assets/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/redux/store";
 import { CurrencySymbol } from "./components/uploadBalanceSection";
 import { UploadBalanceInput } from "./components/uploadBalanceSection";
 import { InputContainer } from "./components/uploadBalanceSection";
@@ -24,13 +22,7 @@ import {
   WinPointValueContainer,
 } from "./components/winPointSection";
 import { recommandationsAmountData } from "@/mocks/recommandationsAmountData";
-import {
-  AmountButton,
-  AmountText,
-  RecommandationsAmountSection,
-} from "./components/recommandationsAmountSection";
 import { KeyboardAvoidingView } from "react-native";
-import { isIOS } from "@/utils/platform";
 import { useScoreGain } from "@/hooks/useScoreGain";
 import { useTopUpMutation } from "@/services/api";
 import { RecommandationAmountsList } from "./components/recommandationAmountsList";
@@ -39,10 +31,8 @@ interface UploadBalanceScreenProps
   extends AuthorizeStackScreenProps<RouteNames.UPLOAD_BALANCE_SCREEN> {}
 
 const UploadBalanceScreen = ({ navigation }: UploadBalanceScreenProps) => {
-  const { user } = useSelector((state: RootState) => state.auth);
   const [amount, setAmount] = useState(recommandationsAmountData[0].amount);
   const [topUp, { isLoading }] = useTopUpMutation();
-  const dispatch = useDispatch<AppDispatch>();
 
   const handleTopUp = async () => {
     try {
@@ -61,10 +51,7 @@ const UploadBalanceScreen = ({ navigation }: UploadBalanceScreenProps) => {
         showBackButton
         onLeftPress={() => navigation.goBack()}
       />
-      <KeyboardAvoidingView
-        behavior={isIOS ? "padding" : "height"}
-        style={{ flex: 1 }}
-      >
+      <KeyboardAvoidingView behavior={"padding"} style={{ flex: 1 }}>
         <Box flex={1} px={20} justifyContent="space-between">
           <Box>
             <Box mt={48} gap={12}>

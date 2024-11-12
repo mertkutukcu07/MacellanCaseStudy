@@ -1,22 +1,10 @@
-import * as Burnt from "burnt";
+import { Alert } from "react-native";
 
-interface ToastOptions {
+interface ToastProps {
   title: string;
-  message?: string;
-  preset?: "done" | "error" | "general";
-  duration?: number;
+  message: string;
 }
 
-export const showToast = ({
-  title,
-  message,
-  preset = "general",
-  duration = 2,
-}: ToastOptions) => {
-  Burnt.toast({
-    title,
-    message,
-    preset: preset === "general" ? "none" : preset,
-    duration,
-  });
+export const showToast = ({ title, message }: ToastProps) => {
+  return Alert.alert(title, message);
 };

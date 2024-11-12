@@ -1,7 +1,8 @@
-if (__DEV__) {
-  require("./src/devtools/ReactotronConfig");
-}
+// if (__DEV__) {
+//   require("./src/devtools/ReactotronConfig");
+// }
 
+import { WSProvider } from "@/contexts/WSProvider";
 import { AppNavigator } from "@/navigation/AppNavigator";
 import { persistor, store } from "@/redux/store";
 import { theme } from "@/theme";
@@ -17,15 +18,17 @@ import { ThemeProvider } from "styled-components/native";
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <GestureHandlerRootView>
-            <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-              <AppNavigator />
-            </SafeAreaProvider>
-          </GestureHandlerRootView>
-        </PersistGate>
-      </Provider>
+      <WSProvider>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <GestureHandlerRootView>
+              <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+                <AppNavigator />
+              </SafeAreaProvider>
+            </GestureHandlerRootView>
+          </PersistGate>
+        </Provider>
+      </WSProvider>
     </ThemeProvider>
   );
 }

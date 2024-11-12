@@ -4,6 +4,6 @@ export enum EndPoints {
   ME = "/users/me",
   TOP_UP = "/deposit/top-up",
   READ_QR = "/capture/read-qr/",
-  APPROVE = "/capture/approve/",
+  APPROVE = "/capture/approve",
   ACTIVITY_LIST = "/activity/list",
 }

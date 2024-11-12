@@ -5,18 +5,41 @@ import { NavigationProp } from "@react-navigation/native";
 import { RouteNames } from "@/navigation/routeNames";
 import { HomeAction } from "@/mocks/homeActionsData";
 import { Linking } from "react-native";
+import { useCameraPermissions } from "expo-camera";
+import { showToast } from "@/components/common/Toast";
 
 export const useActionHandler = (
   dispatch: AppDispatch,
   navigation: NavigationProp<AuthorizeStackParamList>
 ) => {
-  const handleActionPress = (value: HomeAction["value"]) => {
+  const [permission, requestPermission] = useCameraPermissions();
+
+  const handleActionPress = async (value: HomeAction["value"]) => {
     switch (value) {
       case "logout":
         dispatch(logout());
         break;
       case "makePayment":
-        navigation.navigate(RouteNames.MAKE_PAYMENT_SCREEN);
+        const navigateToPayment = () =>
+          navigation.navigate(RouteNames.MAKE_PAYMENT_SCREEN);
+
+        if (permission?.status === "granted") {
+          navigateToPayment();
+          return;
+        }
+
+        if (permission?.status === "undetermined") {
+          const { status } = await requestPermission();
+          if (status === "granted") {
+            navigateToPayment();
+            return;
+          }
+        }
+
+        showToast({
+          title: "Kamera izni verilmedi",
+          message: "Lütfen kamera izni veriniz",
+        });
         break;
       case "uploadBalance":
         navigation.navigate(RouteNames.UPLOAD_BALANCE_SCREEN);

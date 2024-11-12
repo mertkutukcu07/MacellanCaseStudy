@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AuthStackScreenProps } from "@/navigation/stacks/AuthStack";
 import { RouteNames } from "@/navigation/routeNames";
 import {
@@ -15,27 +15,26 @@ import {
 import { useLoginMutation } from "@/services/api";
 import { ErrorResponse, handleError } from "@/utils/errorHandler";
 
-import { setCredentials } from "@/redux/features/authSlice";
-
 interface LoginScreenProps
   extends AuthStackScreenProps<RouteNames.LOGIN_SCREEN> {}
 
 const LoginScreen = ({ navigation }: LoginScreenProps) => {
   const [phone, setPhone] = useState("");
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, error }] = useLoginMutation();
 
   const handleRegister = () => {
     navigation.navigate(RouteNames.REGISTER_SCREEN);
   };
 
   const handleLogin = async () => {
-    try {
-      await login({ phone_number: phone }).unwrap();
-    } catch (error) {
-      // Hata yönetimi burada yapılabilir
-      console.error("Login error:", error);
-    }
+    await login({ phone_number: phone });
   };
+
+  useEffect(() => {
+    if (error) {
+      handleError(error as ErrorResponse);
+    }
+  }, [error]);
 
   return (
     <Container>

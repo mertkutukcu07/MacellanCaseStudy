@@ -34,6 +34,12 @@
             "./src/assets/fonts/HKNova-Regular.otf"
           ]
         }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow MacellanCaseStudy to access your camera"
+        }
       ]
     ]
   }

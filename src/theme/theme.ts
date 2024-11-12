@@ -27,6 +27,15 @@ export const theme = {
       iconBackground: "#F9F8F7",
       topUpText: "#0E968B",
     },
+    spending: {
+      background: "#F4F3F2",
+      stroke: "rgba(21, 21, 30, 0.1)",
+    },
+    toggle: {
+      activeColor: "#FFFFFF",
+      inactiveColor: "#494950",
+      stroke: "#ECEBE8",
+    },
   },
   spacing: {
     xxxs: "2px",
@@ -66,6 +75,7 @@ export const theme = {
     sm: "8px",
     md: "13px",
     lg: "16px",
+    xl: "20px",
     full: "9999px",
   },
 };

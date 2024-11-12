@@ -7,12 +7,20 @@ import {
 import React from "react";
 import { RouteNames } from "../routeNames";
 import HomeScreen from "@/screens/Home/HomeScreen";
-import { MakePaymentScreen, UploadBalanceScreen } from "@/screens";
+import {
+  MakePaymentScreen,
+  SpendingScreen,
+  UploadBalanceScreen,
+} from "@/screens";
+import { ReadQrResponse } from "@/types/readQr/response";
 
 export type AuthorizeStackParamList = {
   [RouteNames.HOME_SCREEN]: undefined;
   [RouteNames.MAKE_PAYMENT_SCREEN]: undefined;
   [RouteNames.UPLOAD_BALANCE_SCREEN]: undefined;
+  [RouteNames.SPENDING_SCREEN]: {
+    spending: ReadQrResponse;
+  };
 };
 
 const Stack = createNativeStackNavigator<AuthorizeStackParamList>();
@@ -32,6 +40,10 @@ const AuthorizeStack = () => {
       <Stack.Screen
         name={RouteNames.UPLOAD_BALANCE_SCREEN}
         component={UploadBalanceScreen}
+      />
+      <Stack.Screen
+        name={RouteNames.SPENDING_SCREEN}
+        component={SpendingScreen}
       />
     </Stack.Navigator>
   );

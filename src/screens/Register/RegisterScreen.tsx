@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { AuthStackScreenProps } from "@/navigation/stacks/AuthStack";
 import { RouteNames } from "@/navigation/routeNames";
@@ -35,9 +35,11 @@ const RegisterScreen = ({ navigation }: RegisterScreenProps) => {
     });
   };
 
-  if (error) {
-    handleError(error as ErrorResponse);
-  }
+  useEffect(() => {
+    if (error) {
+      handleError(error as ErrorResponse);
+    }
+  }, [error]);
 
   return (
     <Container>

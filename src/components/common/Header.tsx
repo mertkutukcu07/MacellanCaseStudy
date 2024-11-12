@@ -2,12 +2,15 @@ import styled from "styled-components/native";
 import { TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const HeaderContainer = styled.View`
+const HeaderContainer = styled.View<{
+  disableBorder?: boolean;
+  px?: number;
+}>`
   flex-direction: row;
   align-items: center;
-  padding-horizontal: ${({ theme }) => theme.spacing.sm};
   padding-vertical: ${({ theme }) => theme.spacing.md};
-  border-bottom-width: 1px;
+  padding-horizontal: ${({ px, theme }) => (px ? px : theme.spacing.xs)};
+  border-bottom-width: ${({ disableBorder }) => (disableBorder ? 0 : 1)}px;
   border-bottom-color: ${({ theme }) => theme.colors.common.border};
 `;
 
@@ -30,10 +33,12 @@ const EmptyContainer = styled.View`
 `;
 
 interface HeaderProps {
-  title: string;
+  title?: string;
   leftIcon?: React.ReactNode;
   onLeftPress?: () => void;
   showBackButton?: boolean;
+  disableBorder?: boolean;
+  px?: number;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -41,11 +46,17 @@ export const Header: React.FC<HeaderProps> = ({
   leftIcon,
   onLeftPress,
   showBackButton = false,
+  disableBorder = false,
+  px,
 }) => {
   const { top } = useSafeAreaInsets();
 
   return (
-    <HeaderContainer style={{ paddingTop: top }}>
+    <HeaderContainer
+      style={{ paddingTop: top }}
+      disableBorder={disableBorder}
+      px={px}
+    >
       {showBackButton ? (
         <IconContainer onPress={onLeftPress}>{leftIcon}</IconContainer>
       ) : (
