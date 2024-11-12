@@ -18,7 +18,7 @@ import {
 } from "./components/BalanceSection";
 import { homeActionsData } from "@/mocks/homeActionsData";
 import { ActionList } from "./components/ActionList";
-import { logout } from "@/redux/features/authSlice";
+import { useActionHandler } from "@/hooks/useActionHandler";
 
 interface HomeScreenProps
   extends AuthorizeStackScreenProps<RouteNames.HOME_SCREEN> {}
@@ -28,11 +28,7 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const { data: activityList } = useGetActivityListQuery();
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
-  const handleActionPress = (value: string) => {
-    if (value === "logout") {
-      dispatch(logout());
-    }
-  };
+  const { handleActionPress } = useActionHandler(dispatch, navigation);
 
   return (
     <Container>

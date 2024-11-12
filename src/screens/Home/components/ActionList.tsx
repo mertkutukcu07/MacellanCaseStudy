@@ -1,13 +1,12 @@
-import { FC } from "react";
 import { ActionsSection, ActionsItem, ActionsTitle } from "./ActionsSection";
 import { HomeAction } from "@/mocks/homeActionsData";
 
 interface ActionListProps {
   actions: HomeAction[];
-  onPress: (value: string) => void;
+  onPress: (value: HomeAction["value"]) => void;
 }
 
-export const ActionList: FC<ActionListProps> = ({ actions, onPress }) => {
+export const ActionList = ({ actions, onPress }: ActionListProps) => {
   return (
     <ActionsSection>
       {actions.map((action, index) => (

@@ -23,6 +23,6 @@ export const PointContainer = styled.View`
 
 export const PointText = styled.Text`
   color: ${({ theme }) => theme.colors.text.primary};
-  font-size: ${({ theme }) => theme.typography.fontSize.xxxs};
+  font-size: ${({ theme }) => theme.typography.fontSize.xs};
   font-family: ${({ theme }) => theme.typography.fontFamily.bold};
 `;

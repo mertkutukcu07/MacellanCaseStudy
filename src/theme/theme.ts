@@ -19,8 +19,14 @@ export const theme = {
     point: {
       background: "#FFDD99",
     },
+    recommendAmount: {
+      stroke: "#ECEBE8",
+      selectedAmount: "rgba(244, 54, 76, 0.1)",
+    },
   },
   spacing: {
+    xxxs: "2px",
+    xxs: "4px",
     xs: "8px",
     sm: "12px",
     md: "16px",

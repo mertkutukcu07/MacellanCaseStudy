@@ -119,11 +119,32 @@ export const api = createApi({
     }),
 
     topUp: builder.mutation<TopUpResponse, TopUpRequest>({
-      query: (amount) => ({
+      query: (data) => ({
         url: EndPoints.TOP_UP,
         method: "POST",
-        body: { amount },
+        body: data,
       }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data: topUpData } = await queryFulfilled;
+          if (topUpData.success) {
+            const meResult = await dispatch(
+              api.endpoints.getMe.initiate(undefined, { forceRefetch: true })
+            );
+            if (meResult.data) {
+              dispatch(
+                setCredentials({
+                  token: (meResult.data as any).token,
+                  user: meResult.data,
+                })
+              );
+            }
+          }
+        } catch (error) {
+          console.error("TopUp error:", error);
+        }
+      },
+      invalidatesTags: ["Me"],
     }),
 
     readQR: builder.query<ReadQrResponse, ReadQrRequest>({
@@ -145,6 +166,7 @@ export const api = createApi({
       query: () => ({
         url: EndPoints.ACTIVITY_LIST,
       }),
+      providesTags: ["Me"],
     }),
   }),
 });
