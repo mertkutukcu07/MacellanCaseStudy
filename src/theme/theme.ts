@@ -23,6 +23,10 @@ export const theme = {
       stroke: "#ECEBE8",
       selectedAmount: "rgba(244, 54, 76, 0.1)",
     },
+    accountMovements: {
+      iconBackground: "#F9F8F7",
+      topUpText: "#0E968B",
+    },
   },
   spacing: {
     xxxs: "2px",
@@ -33,6 +37,10 @@ export const theme = {
     lg: "24px",
     xl: "32px",
     xxl: "40px",
+    xxxl: "48px",
+    xxxxl: "56px",
+    xxxxxl: "64px",
+    xxxxxxl: "72px",
   },
   typography: {
     fontFamily: {

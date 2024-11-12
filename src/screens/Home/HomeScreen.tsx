@@ -19,6 +19,10 @@ import {
 import { homeActionsData } from "@/mocks/homeActionsData";
 import { ActionList } from "./components/ActionList";
 import { useActionHandler } from "@/hooks/useActionHandler";
+import { FlatList } from "react-native";
+import { ItemSeparator } from "./components/AccountMovementsSection";
+import { AccountMovementsHeader } from "./components/AccountMovementsSection";
+import AccountMovementsList from "./components/AccountMovementsList";
 
 interface HomeScreenProps
   extends AuthorizeStackScreenProps<RouteNames.HOME_SCREEN> {}
@@ -47,11 +51,21 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
               <PointText>{`Puan: ₺${user?.point}`}</PointText>
             </PointContainer>
           </Box>
-          <Box>
-            <ActionList actions={homeActionsData} onPress={handleActionPress} />
-          </Box>
+          <ActionList actions={homeActionsData} onPress={handleActionPress} />
         </Box>
       </TopSection>
+      <Box flex={0.5} px={20} mt={20}>
+        <FlatList
+          data={activityList?.result}
+          ListHeaderComponent={
+            <AccountMovementsHeader>Hesap Hareketleri</AccountMovementsHeader>
+          }
+          ItemSeparatorComponent={() => <ItemSeparator />}
+          renderItem={({ item, index }) => {
+            return <AccountMovementsList item={item} index={index} />;
+          }}
+        />
+      </Box>
     </Container>
   );
 };

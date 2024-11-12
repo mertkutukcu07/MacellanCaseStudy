@@ -12,4 +12,6 @@ export {
   UploadBalanceIcon,
   AppInfoIcon,
   LogoutIcon,
+  CaptureIcon,
+  TopUpIcon,
 };
