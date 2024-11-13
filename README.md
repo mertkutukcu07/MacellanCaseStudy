@@ -16,23 +16,8 @@
   ]
 
 ### Proje Yapısı
-bash
-src/
-├── assets/
-├── components/
-│ └── common/
-├── contexts/
-├── devtools/
-├── hooks/
-├── mocks/
-├── navigation/
-├── redux/
-├── screens/
-│ └── components/
-├── services/
-├── theme/
-├── types/
-└── utils/
+
+   <img src="./screenshots/ProjectStructure.png" width="300" />
 
 ### Kurulum Adımları
 
