@@ -10,7 +10,7 @@ import FlashIcon from "./FlashIcon.svg";
 import WalletIcon from "./WalletIcon.png";
 import ActiveToggleIcon from "./ActiveToggleIcon.svg";
 import InactiveToggleIcon from "./InactiveToggleIcon.svg";
-
+import BulletIcon from "./BulletIcon.svg";
 export {
   ArrowLeftIcon,
   MakePaymentIcon,
@@ -24,4 +24,5 @@ export {
   WalletIcon,
   ActiveToggleIcon,
   InactiveToggleIcon,
+  BulletIcon,
 };

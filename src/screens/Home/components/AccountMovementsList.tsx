@@ -10,6 +10,8 @@ import {
   AccountMovementsTitle,
 } from "./AccountMovementsSection";
 import { useTransactionFormat } from "@/hooks/useTransactionFormat";
+import { Box } from "@/components/common";
+import { BulletIcon } from "@/assets/icons";
 
 interface AccountMovementsListProps {
   item: Activity;
@@ -24,7 +26,10 @@ const AccountMovementsList = ({ item, index }: AccountMovementsListProps) => {
     <AccountMovementsItem key={`account-movements-${index}`}>
       <AccountMovementsIconAndTitle>
         <AccountMovementsIcon>{getIcon()}</AccountMovementsIcon>
-        <AccountMovementsTitle>{getTitle()}</AccountMovementsTitle>
+        <Box row alignItems="center" gap={4}>
+          <AccountMovementsTitle>{getTitle()}</AccountMovementsTitle>
+          {item.type === "capture" && <BulletIcon />}
+        </Box>
       </AccountMovementsIconAndTitle>
       <AccountMovementsInfo>
         <AccountMovementsPriceText type={item.type as "capture" | "top-up"}>

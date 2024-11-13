@@ -20,7 +20,7 @@ export const OTPInput = styled.TextInput<{
   font-family: ${({ theme }) => theme.typography.fontFamily.bold};
   border: 1px solid ${({ theme }) => theme.colors.otpInput.stroke};
   border-color: ${({ activeInput, fillInput, theme }) =>
-    activeInput || fillInput ? theme.colors.otpInput.stroke : "transparent"};
+    activeInput || fillInput ? "transparent" : theme.colors.otpInput.stroke};
 `;
 
 export const InputContainer = styled.View`
