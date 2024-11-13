@@ -14,18 +14,18 @@ import { ArrowLeftIcon } from "@/assets/icons";
 import { KeyboardAvoidingView } from "react-native";
 import { InputContainer, OTPInput } from "./components/OTPInput";
 import { TextInput } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useReadQRMutation } from "@/services/api";
 
 interface EnterReferenceCodeProps
   extends AuthorizeStackScreenProps<RouteNames.ENTER_REFERENCE_CODE_SCREEN> {}
 
 const EnterReferenceCode = ({ navigation }: EnterReferenceCodeProps) => {
-  const { bottom } = useSafeAreaInsets();
-  const [code, setCode] = useState<string[]>(["", "", "", "", "", ""]);
-  const [activeIndex, setActiveIndex] = useState<number>(0);
   const inputRefs = useRef<TextInput[]>([]);
   const [readQR, { isLoading, isSuccess, data }] = useReadQRMutation();
+  const OTP_LENGTH = 6;
+  const OTP_INPUTS = Array.from({ length: OTP_LENGTH }, (_, i) => i);
+  const [code, setCode] = useState<string[]>(Array(OTP_LENGTH).fill(""));
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const handleCodeChange = (text: string, index: number) => {
     const newCode = [...code];
@@ -73,9 +73,9 @@ const EnterReferenceCode = ({ navigation }: EnterReferenceCodeProps) => {
               giriniz.
             </Description>
             <InputContainer>
-              {[0, 1, 2, 3, 4, 5].map((index) => (
+              {OTP_INPUTS.map((index) => (
                 <OTPInput
-                  key={index}
+                  key={`otp-input-${index}`}
                   ref={(ref) => ref && (inputRefs.current[index] = ref)}
                   activeInput={activeIndex === index}
                   maxLength={1}
@@ -89,7 +89,7 @@ const EnterReferenceCode = ({ navigation }: EnterReferenceCodeProps) => {
               ))}
             </InputContainer>
           </Box>
-          <Button mb={bottom} onPress={handleSubmit}>
+          <Button mb={24} onPress={handleSubmit}>
             <ButtonText>Ödemeyi Tamamla</ButtonText>
           </Button>
         </Box>
