@@ -16,7 +16,7 @@
   ]
 
 ### Proje Yapısı
-
+bash
 src/
 ├── assets/
 ├── components/
