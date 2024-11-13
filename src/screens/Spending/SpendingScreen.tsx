@@ -36,6 +36,8 @@ import { api, useApproveMutation } from "@/services/api";
 import { useWS } from "@/contexts/WSProvider";
 import { ApproveResponse } from "@/types/approve/response";
 import { setCredentials } from "@/redux/features/authSlice";
+import { theme } from "@/theme";
+import { ActivityIndicator } from "react-native";
 
 interface SpendingScreenProps
   extends AuthorizeStackScreenProps<RouteNames.SPENDING_SCREEN> {}
@@ -45,7 +47,8 @@ const SpendingScreen = ({ route, navigation }: SpendingScreenProps) => {
   const { bottom } = useSafeAreaInsets();
   const { user, token } = useSelector((state: RootState) => state.auth);
   const [isUsagePoint, setIsUsagePoint] = useState(false);
-  const [approve, { data }] = useApproveMutation();
+  const [approve, { isLoading }] = useApproveMutation();
+  const [completedLoading, setCompletedLoading] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
   const ws = useWS();
@@ -82,6 +85,8 @@ const SpendingScreen = ({ route, navigation }: SpendingScreenProps) => {
         navigation.navigate(RouteNames.HOME_SCREEN);
       } catch (error) {
         console.error("Veri güncelleme hatası:", error);
+      } finally {
+        setCompletedLoading(false);
       }
     }
   };
@@ -101,6 +106,7 @@ const SpendingScreen = ({ route, navigation }: SpendingScreenProps) => {
       if (result) {
         console.log("Ödeme onaylandı:", result);
         ws.emit("join", result.user_id);
+        setCompletedLoading(true);
       }
     } catch (error) {
       console.error("Ödeme hatası:", error);
@@ -157,8 +163,19 @@ const SpendingScreen = ({ route, navigation }: SpendingScreenProps) => {
           <SkipButtonText onPress={() => navigation.goBack()}>
             Vazgeç
           </SkipButtonText>
-          <Button width="160px" onPress={handlePay}>
-            <ButtonText>Öde</ButtonText>
+          <Button
+            width="160px"
+            onPress={handlePay}
+            disabled={completedLoading || isLoading}
+          >
+            {completedLoading || isLoading ? (
+              <ActivityIndicator
+                size="small"
+                color={theme.colors.common.white}
+              />
+            ) : (
+              <ButtonText>Öde</ButtonText>
+            )}
           </Button>
         </BottomFooter>
       </BottomSection>

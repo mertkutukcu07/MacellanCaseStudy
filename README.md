@@ -40,4 +40,4 @@
 
 ## 📸 Test Akış Senaryosu Test Videosu
 
-https://drive.google.com/file/d/1LbxdDjYFg9cO6qx0mQkG6jqadlKw97YM/view?usp=share_link
+https://drive.google.com/file/d/1LBgwluFTIKPJufOGG_Naus_NdM1wDXBl/view?usp=share_link
