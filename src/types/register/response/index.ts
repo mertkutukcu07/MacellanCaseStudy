@@ -1,3 +1,3 @@
 export type RegisterResponse = {
-  token: string;
-};
+    token: string
+}

@@ -1,3 +1,3 @@
 export type ReadQrRequest = {
-  reference_code: string;
-};
+    reference_code: string
+}

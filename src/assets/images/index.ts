@@ -1,3 +1,3 @@
-import CameraOverlay from "./CameraOverlay.png";
+import CameraOverlay from './CameraOverlay.png'
 
-export { CameraOverlay };
+export { CameraOverlay }

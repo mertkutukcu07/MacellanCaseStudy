@@ -1,3 +1,3 @@
 export type TopUpRequest = {
-  amount: number;
-};
+    amount: number
+}

@@ -1,46 +1,46 @@
 {
-  "expo": {
-    "name": "MacellanCaseStudy",
-    "slug": "MacellanCaseStudy",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./src/assets/root/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./src/assets/root/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#EF3B50"
-    },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.macellancasestudy.app"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./src/assets/root/adaptive-icon.png",
-        "backgroundColor": "#EF3B50"
-      },
-      "package": "com.macellancasestudy.app"
-    },
-    "web": {
-      "favicon": "./src/assets/root/favicon.png"
-    },
-    "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./src/assets/fonts/HKNova-Bold.otf",
-            "./src/assets/fonts/HKNova-Regular.otf"
-          ]
-        }
-      ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "Allow MacellanCaseStudy to access your camera"
-        }
-      ]
-    ]
-  }
+    "expo": {
+        "name": "MacellanCaseStudy",
+        "slug": "MacellanCaseStudy",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./src/assets/root/icon.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./src/assets/root/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#EF3B50"
+        },
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.macellancasestudy.app"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./src/assets/root/adaptive-icon.png",
+                "backgroundColor": "#EF3B50"
+            },
+            "package": "com.macellancasestudy.app"
+        },
+        "web": {
+            "favicon": "./src/assets/root/favicon.png"
+        },
+        "plugins": [
+            [
+                "expo-font",
+                {
+                    "fonts": [
+                        "./src/assets/fonts/HKNova-Bold.otf",
+                        "./src/assets/fonts/HKNova-Regular.otf"
+                    ]
+                }
+            ],
+            [
+                "expo-camera",
+                {
+                    "cameraPermission": "Allow MacellanCaseStudy to access your camera"
+                }
+            ]
+        ]
+    }
 }

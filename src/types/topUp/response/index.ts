@@ -1,3 +1,3 @@
 export type TopUpResponse = {
-  success: boolean;
-};
+    success: boolean
+}

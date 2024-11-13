@@ -1,3 +1,3 @@
 export type LoginRequest = {
-  phone_number: string;
-};
+    phone_number: string
+}

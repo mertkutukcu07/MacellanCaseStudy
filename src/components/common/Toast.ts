@@ -1,10 +1,10 @@
-import { Alert } from "react-native";
+import { Alert } from 'react-native'
 
 interface ToastProps {
-  title: string;
-  message: string;
+    title: string
+    message: string
 }
 
 export const showToast = ({ title, message }: ToastProps) => {
-  return Alert.alert(title, message);
-};
+    return Alert.alert(title, message)
+}

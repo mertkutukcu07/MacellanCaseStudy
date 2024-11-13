@@ -2,18 +2,18 @@
 
 ### Kullanılan Teknolojiler
 
-- **Frontend**: [
-  React Native,
-  Expo,
-  TypeScript,
-  Redux Toolkit,
-  RTK Query,
-  Styled Components
-  ]
+-   **Frontend**: [
+    React Native,
+    Expo,
+    TypeScript,
+    Redux Toolkit,
+    RTK Query,
+    Styled Components
+    ]
 
-- **Diğer Araçlar**: [
-  Reactotron DevTools
-  ]
+-   **Diğer Araçlar**: [
+    Reactotron DevTools
+    ]
 
 ### Proje Yapısı
 

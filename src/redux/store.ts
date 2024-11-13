@@ -1,43 +1,50 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import authSlice from "./features/authSlice";
-import { api } from "@/services/api";
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import authSlice from './features/authSlice'
+import { api } from '@/services/api'
 import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+    persistStore,
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+} from 'redux-persist'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const persistConfig = {
-  key: "root",
-  version: 1,
-  storage: AsyncStorage,
-  whitelist: ["auth"],
-};
+    key: 'root',
+    version: 1,
+    storage: AsyncStorage,
+    whitelist: ['auth'],
+}
 
 const rootReducer = combineReducers({
-  auth: authSlice,
-  [api.reducerPath]: api.reducer,
-});
+    auth: authSlice,
+    [api.reducerPath]: api.reducer,
+})
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }).concat(api.middleware),
-});
+    reducer: persistedReducer,
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [
+                    FLUSH,
+                    REHYDRATE,
+                    PAUSE,
+                    PERSIST,
+                    PURGE,
+                    REGISTER,
+                ],
+            },
+        }).concat(api.middleware),
+})
 
-export const persistor = persistStore(store);
+export const persistor = persistStore(store)
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
