@@ -36,6 +36,11 @@ export const theme = {
       inactiveColor: "#494950",
       stroke: "#ECEBE8",
     },
+    otpInput: {
+      activeColor: "#F4364C",
+      inactiveColor: "#F9F8F7",
+      stroke: "#ECEBE8",
+    },
   },
   spacing: {
     xxxs: "2px",

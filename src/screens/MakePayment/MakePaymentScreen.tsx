@@ -31,6 +31,10 @@ const MakePaymentScreen = ({ navigation }: MakePaymentScreenProps) => {
     }
   };
 
+  const handleEnterReferenceCode = () => {
+    navigation.navigate(RouteNames.ENTER_REFERENCE_CODE_SCREEN);
+  };
+
   useEffect(() => {
     if (isSuccess) {
       navigation.replace(RouteNames.SPENDING_SCREEN, {
@@ -65,7 +69,10 @@ const MakePaymentScreen = ({ navigation }: MakePaymentScreenProps) => {
           <FlashIcon />
         </FlashIconButton>
 
-        <Button backgroundColor={theme.colors.common.white}>
+        <Button
+          backgroundColor={theme.colors.common.white}
+          onPress={handleEnterReferenceCode}
+        >
           <ButtonText color={theme.colors.common.black}>
             Referans Kodu Gir
           </ButtonText>

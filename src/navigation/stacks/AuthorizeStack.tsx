@@ -8,6 +8,7 @@ import React from "react";
 import { RouteNames } from "../routeNames";
 import HomeScreen from "@/screens/Home/HomeScreen";
 import {
+  EnterReferenceCodeScreen,
   MakePaymentScreen,
   SpendingScreen,
   UploadBalanceScreen,
@@ -21,6 +22,7 @@ export type AuthorizeStackParamList = {
   [RouteNames.SPENDING_SCREEN]: {
     spending: ReadQrResponse;
   };
+  [RouteNames.ENTER_REFERENCE_CODE_SCREEN]: undefined;
 };
 
 const Stack = createNativeStackNavigator<AuthorizeStackParamList>();
@@ -44,6 +46,10 @@ const AuthorizeStack = () => {
       <Stack.Screen
         name={RouteNames.SPENDING_SCREEN}
         component={SpendingScreen}
+      />
+      <Stack.Screen
+        name={RouteNames.ENTER_REFERENCE_CODE_SCREEN}
+        component={EnterReferenceCodeScreen}
       />
     </Stack.Navigator>
   );

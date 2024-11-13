@@ -45,7 +45,7 @@ const SpendingScreen = ({ route, navigation }: SpendingScreenProps) => {
   const { bottom } = useSafeAreaInsets();
   const { user, token } = useSelector((state: RootState) => state.auth);
   const [isUsagePoint, setIsUsagePoint] = useState(false);
-  const [approve] = useApproveMutation();
+  const [approve, { data }] = useApproveMutation();
 
   const dispatch = useDispatch<AppDispatch>();
   const ws = useWS();
@@ -100,11 +100,7 @@ const SpendingScreen = ({ route, navigation }: SpendingScreenProps) => {
 
       if (result) {
         console.log("Ödeme onaylandı:", result);
-
-        const USER_ID = "67327617441ab7969000477b";
-        ws.emit("join", USER_ID);
-
-        ws.on("completed", handleCompletedEvent);
+        ws.emit("join", result.user_id);
       }
     } catch (error) {
       console.error("Ödeme hatası:", error);
@@ -112,6 +108,8 @@ const SpendingScreen = ({ route, navigation }: SpendingScreenProps) => {
   };
 
   useEffect(() => {
+    ws.on("completed", handleCompletedEvent);
+
     return () => {
       ws.off("completed");
     };
