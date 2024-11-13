@@ -17,11 +17,13 @@ import { isIOS } from "@/utils/platform";
 import { useRegisterMutation } from "@/services/api";
 import { handleError } from "@/utils/errorHandler";
 import { ErrorResponse } from "@/utils/errorHandler";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface RegisterScreenProps
   extends AuthStackScreenProps<RouteNames.REGISTER_SCREEN> {}
 
 const RegisterScreen = ({ navigation }: RegisterScreenProps) => {
+  const { bottom } = useSafeAreaInsets();
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [phone, setPhone] = useState("");
@@ -90,7 +92,7 @@ const RegisterScreen = ({ navigation }: RegisterScreenProps) => {
                 maxLength={10}
               />
             </Box>
-            <Button onPress={handleRegister} disabled={isLoading}>
+            <Button mb={bottom} onPress={handleRegister} disabled={isLoading}>
               <ButtonText>Üye Ol</ButtonText>
             </Button>
           </Box>

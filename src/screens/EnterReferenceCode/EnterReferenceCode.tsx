@@ -33,6 +33,8 @@ const EnterReferenceCode = ({ navigation }: EnterReferenceCodeProps) => {
     setCode(newCode);
     if (text) {
       inputRefs.current[index + 1]?.focus();
+    } else {
+      inputRefs.current[index - 1]?.focus();
     }
   };
 

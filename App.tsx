@@ -1,3 +1,4 @@
+// only open the project with prebuild
 // if (__DEV__) {
 //   require("./src/devtools/ReactotronConfig");
 // }

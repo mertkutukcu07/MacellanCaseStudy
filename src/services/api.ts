@@ -124,7 +124,7 @@ export const api = createApi({
         method: "POST",
         body: data,
       }),
-      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(arg, { dispatch, queryFulfilled, getState }) {
         try {
           const { data: topUpData } = await queryFulfilled;
           if (topUpData.success) {
@@ -134,7 +134,7 @@ export const api = createApi({
             if (meResult.data) {
               dispatch(
                 setCredentials({
-                  token: (meResult.data as any).token,
+                  token: (getState() as RootState).auth.token || "",
                   user: meResult.data,
                 })
               );
